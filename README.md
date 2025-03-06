@@ -5,6 +5,15 @@ OpenShift Dev Spaces Code Assistant with Intel GPU - llama.cpp - continue.dev
 podman build -t quay.io/cgruver0/che/my-code-assistant:latest ./llama-cpp-image
 ```
 
+```
+let gpu_index=0
+for i in $(oc get nodes -o name)
+do
+  oc label ${i} gpu-index=${gpu_index}
+  gpu_index=$(( ${gpu_index} + 1 ))
+done
+
+
 Run LLama.CPP in workspace -
 
 ```bash
