@@ -1,6 +1,6 @@
 FROM quay.io/fedora/fedora:41 as builder
 
-ARG LLAMA_CPP_VER=b4784
+ARG LLAMA_CPP_VER=b4854
 
 COPY oneAPI.repo /etc/yum.repos.d/
 
@@ -13,19 +13,10 @@ RUN dnf install -y procps-ng g++ cmake git libcurl-devel intel-oneapi-mkl-sycl-d
     cmake .. -DGGML_SYCL=ON -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icpx -DLLAMA_CURL=ON -DGGML_CCACHE=OFF -DGGML_NATIVE=OFF -DGGML_CPU_AARCH64=OFF ; \
     cmake --build . --config Release -j -v ; \
     cmake --install . --prefix /llama-cpp
-    # cd ../.. ; \
-    # git clone https://github.com/ggerganov/whisper.cpp ; \
-    # cd whisper.cpp ; \
-    # mkdir -p build ; \
-    # cd build ; \
-    # cmake .. -DGGML_SYCL=ON -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icpx -DGGML_CCACHE=OFF -DGGML_NATIVE=OFF ; \
-    # cmake --build . --config Release -v ; \
-    # cmake --install . --prefix /llama-cpp
 
 FROM quay.io/fedora/fedora:41
 
 COPY --from=builder /llama-cpp/bin/ /usr/bin/
-# COPY --from=builder /llama-cpp/lib/ /usr/lib/
 COPY --from=builder /llama-cpp/lib64/ /usr/lib64/
 COPY --from=builder /llama-cpp/include/ /usr/include/
 COPY oneAPI.repo /etc/yum.repos.d/

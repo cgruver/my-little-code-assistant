@@ -156,7 +156,7 @@ metadata:
   name: llama-cpp-code-assistant-chat
   namespace: code-assistant
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: llama-cpp-code-assistant-chat
@@ -169,8 +169,6 @@ spec:
       annotations:
         io.kubernetes.cri-o.Devices: "/dev/dri/renderD128"
     spec:
-      hostUsers: false
-      procMount: unmasked
       containers:
       - name: llama-cpp-code-assistant-chat
         image: quay.io/cgruver0/che/my-code-assistant:latest
@@ -189,12 +187,17 @@ spec:
         args:
           - 'llama-server'
           - '--jinja'
-          - '--model $(RAMALAMA_STORE)/models/ollama/$(MODEL)'
-          - '--host 0.0.0.0' 
-          - '--n-gpu-layers 999' 
-          - '--flash-attn' 
-          - '--ctx-size $(LLAMA_CPP_CTX)'
-          - '--device $(LLAMA_CPP_GPU)'
+          - '--model'
+          - $(RAMALAMA_STORE)/models/ollama/$(MODEL)
+          - '--host'
+          - 0.0.0.0
+          - '--n-gpu-layers'
+          - '999'
+          - '--flash-attn'
+          - '--ctx-size'
+          - $(LLAMA_CPP_CTX)
+          - '--device'
+          - $(LLAMA_CPP_GPU)
         ports:
         - name: http
           containerPort: 8080
@@ -224,6 +227,7 @@ spec:
           periodSeconds: 100
           successThreshold: 1
           failureThreshold: 3
+          initialDelaySeconds: 120
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
@@ -235,7 +239,7 @@ spec:
         persistentVolumeClaim:
           claimName: llama-cpp-code-assistant-chat
       nodeSelector:
-        gpu_index: "0"
+        gpu-index: "0"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -243,7 +247,7 @@ metadata:
   name: llama-cpp-code-assistant-autocomplete
   namespace: code-assistant
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: llama-cpp-code-assistant-autocomplete
@@ -256,8 +260,6 @@ spec:
       annotations:
         io.kubernetes.cri-o.Devices: "/dev/dri/renderD128"
     spec:
-      hostUsers: false
-      procMount: unmasked
       containers:
       - name: llama-cpp-code-assistant-autocomplete
         image: quay.io/cgruver0/che/my-code-assistant:latest
@@ -276,12 +278,17 @@ spec:
         args:
           - 'llama-server'
           - '--jinja'
-          - '--model $(RAMALAMA_STORE)/models/ollama/$(MODEL)'
-          - '--host 0.0.0.0' 
-          - '--n-gpu-layers 999' 
-          - '--flash-attn' 
-          - '--ctx-size $(LLAMA_CPP_CTX)'
-          - '--device $(LLAMA_CPP_GPU)'
+          - '--model'
+          - $(RAMALAMA_STORE)/models/ollama/$(MODEL)
+          - '--host'
+          - 0.0.0.0
+          - '--n-gpu-layers'
+          - '999'
+          - '--flash-attn'
+          - '--ctx-size'
+          - $(LLAMA_CPP_CTX)
+          - '--device'
+          - $(LLAMA_CPP_GPU)
         ports:
         - name: http
           containerPort: 8080
@@ -311,6 +318,7 @@ spec:
           periodSeconds: 100
           successThreshold: 1
           failureThreshold: 3
+          initialDelaySeconds: 120
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
@@ -322,7 +330,7 @@ spec:
         persistentVolumeClaim:
           claimName: llama-cpp-code-assistant-autocomplete
       nodeSelector:
-        gpu_index: "0"
+        gpu-index: "1"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -330,7 +338,7 @@ metadata:
   name: llama-cpp-code-assistant-embedding
   namespace: code-assistant
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: llama-cpp-code-assistant-embedding
@@ -343,8 +351,6 @@ spec:
       annotations:
         io.kubernetes.cri-o.Devices: "/dev/dri/renderD128"
     spec:
-      hostUsers: false
-      procMount: unmasked
       containers:
       - name: llama-cpp-code-assistant-embedding
         image: quay.io/cgruver0/che/my-code-assistant:latest
@@ -363,12 +369,17 @@ spec:
         args:
           - 'llama-server'
           - '--jinja'
-          - '--model $(RAMALAMA_STORE)/models/ollama/$(MODEL)'
-          - '--host 0.0.0.0' 
-          - '--n-gpu-layers 999' 
-          - '--flash-attn' 
-          - '--ctx-size $(LLAMA_CPP_CTX)'
-          - '--device $(LLAMA_CPP_GPU)'
+          - '--model'
+          - $(RAMALAMA_STORE)/models/ollama/$(MODEL)
+          - '--host'
+          - 0.0.0.0
+          - '--n-gpu-layers'
+          - '999'
+          - '--flash-attn'
+          - '--ctx-size'
+          - $(LLAMA_CPP_CTX)
+          - '--device'
+          - $(LLAMA_CPP_GPU)
         ports:
         - name: http
           containerPort: 8080
@@ -398,6 +409,7 @@ spec:
           periodSeconds: 100
           successThreshold: 1
           failureThreshold: 3
+          initialDelaySeconds: 120
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
@@ -409,4 +421,4 @@ spec:
         persistentVolumeClaim:
           claimName: llama-cpp-code-assistant-embedding
       nodeSelector:
-        gpu_index: "0"
+        gpu-index: "2"

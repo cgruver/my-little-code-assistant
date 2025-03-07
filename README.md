@@ -12,6 +12,36 @@ do
   oc label ${i} gpu-index=${gpu_index}
   gpu_index=$(( ${gpu_index} + 1 ))
 done
+```
+
+## Machine Config to leak GPU into a Pod
+
+__Note:__ `/dev/net/tun` and `/dev/fuse` are enabled OOTB.  They are included here for compatibility.  
+
+```bash
+cat << EOF | butane | oc apply -f -
+variant: openshift
+version: 4.18.0
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: master
+  name: enable-gpu
+storage:
+  files:
+  - path: /etc/crio/crio.conf.d/99-intel-gpu
+    mode: 0644
+    overwrite: true
+    contents:
+      inline: |
+        [crio.runtime]
+        allowed_devices = [
+          "/dev/fuse",
+          "/dev/net/tun",
+          "/dev/dri/by-path/pci-0000:00:02.0-render",
+          "/dev/dri/renderD128"
+        ]
+EOF
+```
 
 
 Run LLama.CPP in workspace -
