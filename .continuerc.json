@@ -2,23 +2,35 @@
   "mergeBehavior": "overwrite",
   "models": [
     {
-      "model": "granite-code:3b",
+      "title": "Granite 3.2 Chat",
+      "model": "granite3.2:8b",
+      "contextLength": 131072,
       "provider": "llama.cpp",
-      "apiBase": "<code-assistant-deployment-route>",
+      "apiBase": "https://llama-cpp-code-assistant-chat-code-assistant.apps.region-01.clg.lab/",
       "requestOptions": {
-        "caBundlePath": "/public-certs/ca-certs.ca-bundle.crt"
-      },
-      "title": "Granite Code"
+        "caBundlePath": "/public-certs/tls-ca-bundle.pem"
+      }
     }
   ],
   "tabAutocompleteModel": {
-    "title": "Granite Code",
+    "title": "Granite 3.2 Autocomplete",
     "provider": "llama.cpp",
-    "model": "granite-code:3b",
+    "model": "granite3.2:2b",
+    "contextLength": 131072,
     "requestOptions": {
-      "caBundlePath": "/public-certs/ca-certs.ca-bundle.crt"
+      "caBundlePath": "/public-certs/tls-ca-bundle.pem"
     },
-    "apiBase": "<code-assistant-deployment-route>"
+    "apiBase": "https://llama-cpp-code-assistant-autocomplete-code-assistant.apps.region-01.clg.lab/"
+  },
+  "embeddingsProvider": {
+    "title": "Granite Embeddings",
+    "provider": "llama.cpp",
+    "model": "granite-embedding:30m",
+    "maxChunkSize": 512,
+    "requestOptions": {
+      "caBundlePath": "/public-certs/tls-ca-bundle.pem"
+    },
+    "apiBase": "https://llama-cpp-code-assistant-embedding-code-assistant.apps.region-01.clg.lab/"
   },
   "contextProviders": [
     {
@@ -63,5 +75,6 @@
       "name": "commit",
       "description": "Generate a git commit message"
     }
-  ]
+  ],
+  "data": []
 }
