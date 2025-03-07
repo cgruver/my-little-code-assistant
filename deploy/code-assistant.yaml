@@ -156,7 +156,7 @@ metadata:
   name: llama-cpp-code-assistant-chat
   namespace: code-assistant
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: llama-cpp-code-assistant-chat
@@ -207,11 +207,11 @@ spec:
             cpu: '2'
             memory: 48Gi
           requests:
-            cpu: '1'
+            cpu: '100m'
             memory: 16Gi
         readinessProbe:
           httpGet:
-            path: /
+            path: /health
             port: http
             scheme: HTTP
           timeoutSeconds: 5
@@ -220,7 +220,7 @@ spec:
           failureThreshold: 3
         livenessProbe:
           httpGet:
-            path: /
+            path: /health
             port: http
             scheme: HTTP
           timeoutSeconds: 8
@@ -247,7 +247,7 @@ metadata:
   name: llama-cpp-code-assistant-autocomplete
   namespace: code-assistant
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: llama-cpp-code-assistant-autocomplete
@@ -298,11 +298,11 @@ spec:
             cpu: '2'
             memory: 24Gi
           requests:
-            cpu: '1'
+            cpu: '100m'
             memory: 16Gi
         readinessProbe:
           httpGet:
-            path: /
+            path: /health
             port: http
             scheme: HTTP
           timeoutSeconds: 5
@@ -311,7 +311,7 @@ spec:
           failureThreshold: 3
         livenessProbe:
           httpGet:
-            path: /
+            path: /health
             port: http
             scheme: HTTP
           timeoutSeconds: 8
@@ -338,7 +338,7 @@ metadata:
   name: llama-cpp-code-assistant-embedding
   namespace: code-assistant
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: llama-cpp-code-assistant-embedding
@@ -368,6 +368,7 @@ spec:
           - '/entrypoint.sh'
         args:
           - 'llama-server'
+          - '--embeddings'
           - '--jinja'
           - '--model'
           - $(RAMALAMA_STORE)/models/ollama/$(MODEL)
@@ -389,11 +390,11 @@ spec:
             cpu: '2'
             memory: 4Gi
           requests:
-            cpu: '1'
+            cpu: '100m'
             memory: 2Gi
         readinessProbe:
           httpGet:
-            path: /
+            path: /health
             port: http
             scheme: HTTP
           timeoutSeconds: 5
@@ -402,7 +403,7 @@ spec:
           failureThreshold: 3
         livenessProbe:
           httpGet:
-            path: /
+            path: /health
             port: http
             scheme: HTTP
           timeoutSeconds: 8
