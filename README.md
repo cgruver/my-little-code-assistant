@@ -37,7 +37,6 @@ storage:
         allowed_devices = [
           "/dev/fuse",
           "/dev/net/tun",
-          "/dev/dri/by-path/pci-0000:00:02.0-render",
           "/dev/dri/renderD128"
         ]
 EOF

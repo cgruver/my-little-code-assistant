@@ -3,7 +3,7 @@
   "models": [
     {
       "title": "Granite 3.2 Chat",
-      "model": "granite3.2:8b",
+      "model": "granite3.2:2b",
       "contextLength": 131072,
       "provider": "llama.cpp",
       "apiBase": "https://llama-cpp-code-assistant-chat-code-assistant.apps.region-01.clg.lab/",
@@ -13,10 +13,11 @@
     }
   ],
   "tabAutocompleteModel": {
-    "title": "Granite 3.2 Autocomplete",
-    "provider": "llama.cpp",
-    "model": "granite3.2:2b",
-    "contextLength": 131072,
+    "apiKey": "",
+    "title": "Granite Code Autocomplete",
+    "provider": "openai",
+    "model": "granite-code:3b",
+    "contextLength": 65536,
     "requestOptions": {
       "caBundlePath": "/public-certs/tls-ca-bundle.pem"
     },
