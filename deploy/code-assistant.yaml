@@ -175,15 +175,13 @@ spec:
         imagePullPolicy: Always
         env:
         - name: MODEL
-          value: granite3.2:8b
+          value: granite3.2:2b
         - name: RAMALAMA_STORE
           value: /ramalama
         - name: LLAMA_CPP_CTX
           value: "131072"
         - name: LLAMA_CPP_GPU
           value: SYCL0
-        command:
-          - '/entrypoint.sh'
         args:
           - 'llama-server'
           - '--jinja'
@@ -239,7 +237,18 @@ spec:
         persistentVolumeClaim:
           claimName: llama-cpp-code-assistant-chat
       nodeSelector:
-        gpu-index: "0"
+        gpu-node: ""
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - llama-cpp-code-assistant-autocomplete
+                - llama-cpp-code-assistant-embedding
+            topologyKey: kubernetes.io/hostname
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -266,15 +275,13 @@ spec:
         imagePullPolicy: Always
         env:
         - name: MODEL
-          value: granite3.2:2b
+          value: granite-code:3b
         - name: RAMALAMA_STORE
           value: /ramalama
         - name: LLAMA_CPP_CTX
-          value: "131072"
+          value: "65536"
         - name: LLAMA_CPP_GPU
           value: SYCL0
-        command:
-          - '/entrypoint.sh'
         args:
           - 'llama-server'
           - '--jinja'
@@ -330,7 +337,18 @@ spec:
         persistentVolumeClaim:
           claimName: llama-cpp-code-assistant-autocomplete
       nodeSelector:
-        gpu-index: "1"
+        gpu-node: ""
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - llama-cpp-code-assistant-chat
+                - llama-cpp-code-assistant-embedding
+            topologyKey: kubernetes.io/hostname
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -364,8 +382,6 @@ spec:
           value: "512"
         - name: LLAMA_CPP_GPU
           value: SYCL0
-        command:
-          - '/entrypoint.sh'
         args:
           - 'llama-server'
           - '--embeddings'
@@ -422,4 +438,15 @@ spec:
         persistentVolumeClaim:
           claimName: llama-cpp-code-assistant-embedding
       nodeSelector:
-        gpu-index: "2"
+        gpu-node: ""
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - llama-cpp-code-assistant-autocomplete
+                - llama-cpp-code-assistant-chat
+            topologyKey: kubernetes.io/hostname

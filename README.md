@@ -6,11 +6,9 @@ podman build -t quay.io/cgruver0/che/my-code-assistant:latest ./llama-cpp-image
 ```
 
 ```
-let gpu_index=0
 for i in $(oc get nodes -o name)
 do
-  oc label ${i} gpu-index=${gpu_index}
-  gpu_index=$(( ${gpu_index} + 1 ))
+  oc label ${i} gpu-node=""
 done
 ```
 
