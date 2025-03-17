@@ -1,6 +1,6 @@
 FROM quay.io/fedora/fedora:41 as builder
 
-ARG LLAMA_CPP_VER=b4854
+ARG LLAMA_CPP_VER=b4901
 
 COPY oneAPI.repo /etc/yum.repos.d/
 
