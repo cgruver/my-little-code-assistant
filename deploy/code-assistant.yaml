@@ -175,7 +175,7 @@ spec:
         imagePullPolicy: Always
         env:
         - name: MODEL
-          value: granite3.2:2b
+          value: granite3.1-dense:2b
         - name: RAMALAMA_STORE
           value: /ramalama
         - name: LLAMA_CPP_CTX
@@ -202,11 +202,11 @@ spec:
           protocol: TCP
         resources:
           limits:
-            cpu: '2'
-            memory: 48Gi
+            cpu: '8'
+            memory: 32Gi
           requests:
             cpu: '100m'
-            memory: 16Gi
+            memory: 8Gi
         readinessProbe:
           httpGet:
             path: /health
@@ -279,7 +279,7 @@ spec:
         - name: RAMALAMA_STORE
           value: /ramalama
         - name: LLAMA_CPP_CTX
-          value: "65536"
+          value: "32768"
         - name: LLAMA_CPP_GPU
           value: SYCL0
         args:
@@ -302,11 +302,11 @@ spec:
           protocol: TCP
         resources:
           limits:
-            cpu: '2'
-            memory: 24Gi
+            cpu: '8'
+            memory: 32Gi
           requests:
             cpu: '100m'
-            memory: 16Gi
+            memory: 8Gi
         readinessProbe:
           httpGet:
             path: /health
