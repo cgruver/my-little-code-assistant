@@ -6,7 +6,7 @@ metadata:
 kind: Service
 apiVersion: v1
 metadata:
-  name: llama-cpp-code-assistant-chat
+  name: llama-cpp-code-assistant-01
   namespace: code-assistant
 spec:
   clusterIP: None
@@ -21,12 +21,12 @@ spec:
   ipFamilyPolicy: SingleStack
   sessionAffinity: None
   selector:
-    app: llama-cpp-code-assistant-chat
+    app: llama-cpp-code-assistant-01
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: llama-cpp-code-assistant-autocomplete
+  name: llama-cpp-code-assistant-02
   namespace: code-assistant
 spec:
   clusterIP: None
@@ -41,12 +41,12 @@ spec:
   ipFamilyPolicy: SingleStack
   sessionAffinity: None
   selector:
-    app: llama-cpp-code-assistant-autocomplete
+    app: llama-cpp-code-assistant-02
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: llama-cpp-code-assistant-embedding
+  name: llama-cpp-code-assistant-03
   namespace: code-assistant
 spec:
   clusterIP: None
@@ -61,17 +61,17 @@ spec:
   ipFamilyPolicy: SingleStack
   sessionAffinity: None
   selector:
-    app: llama-cpp-code-assistant-embedding
+    app: llama-cpp-code-assistant-03
 ---
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: llama-cpp-code-assistant-chat
+  name: llama-cpp-code-assistant-01
   namespace: code-assistant
 spec:
   to:
     kind: Service
-    name: llama-cpp-code-assistant-chat
+    name: llama-cpp-code-assistant-01
     weight: 100
   port:
     targetPort: http
@@ -82,12 +82,12 @@ spec:
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: llama-cpp-code-assistant-autocomplete
+  name: llama-cpp-code-assistant-02
   namespace: code-assistant
 spec:
   to:
     kind: Service
-    name: llama-cpp-code-assistant-autocomplete
+    name: llama-cpp-code-assistant-02
     weight: 100
   port:
     targetPort: http
@@ -98,12 +98,12 @@ spec:
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: llama-cpp-code-assistant-embedding
+  name: llama-cpp-code-assistant-03
   namespace: code-assistant
 spec:
   to:
     kind: Service
-    name: llama-cpp-code-assistant-embedding
+    name: llama-cpp-code-assistant-03
     weight: 100
   port:
     targetPort: http
@@ -114,7 +114,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: llama-cpp-code-assistant-chat
+  name: llama-cpp-code-assistant-01
   namespace: code-assistant
 spec:
   accessModes:
@@ -127,7 +127,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: llama-cpp-code-assistant-autocomplete
+  name: llama-cpp-code-assistant-02
   namespace: code-assistant
 spec:
   accessModes:
@@ -140,7 +140,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: llama-cpp-code-assistant-embedding
+  name: llama-cpp-code-assistant-03
   namespace: code-assistant
 spec:
   accessModes:
@@ -153,25 +153,26 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: llama-cpp-code-assistant-chat
+  name: llama-cpp-code-assistant-01
   namespace: code-assistant
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: llama-cpp-code-assistant-chat
+      app: llama-cpp-code-assistant-01
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: llama-cpp-code-assistant-chat
+        app: llama-cpp-code-assistant-01
       annotations:
         io.kubernetes.cri-o.Devices: "/dev/dri/renderD128"
     spec:
       containers:
-      - name: llama-cpp-code-assistant-chat
-        image: quay.io/cgruver0/che/my-code-assistant:latest
+      - name: llama-cpp-code-assistant-01
+        # image: quay.io/cgruver0/che/my-code-assistant:latest
+        image: nexus.clg.lab:5002/dev-spaces/my-code-assistant:latest
         imagePullPolicy: Always
         env:
         - name: MODEL
@@ -230,12 +231,12 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /ramalama
-          name: llama-cpp-code-assistant-chat
+          name: llama-cpp-code-assistant-01
       restartPolicy: Always
       volumes:
-      - name: llama-cpp-code-assistant-chat
+      - name: llama-cpp-code-assistant-01
         persistentVolumeClaim:
-          claimName: llama-cpp-code-assistant-chat
+          claimName: llama-cpp-code-assistant-01
       nodeSelector:
         gpu-node: ""
       affinity:
@@ -246,36 +247,37 @@ spec:
               - key: app
                 operator: In
                 values:
-                - llama-cpp-code-assistant-autocomplete
-                - llama-cpp-code-assistant-embedding
+                - llama-cpp-code-assistant-02
+                - llama-cpp-code-assistant-03
             topologyKey: kubernetes.io/hostname
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: llama-cpp-code-assistant-autocomplete
+  name: llama-cpp-code-assistant-02
   namespace: code-assistant
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: llama-cpp-code-assistant-autocomplete
+      app: llama-cpp-code-assistant-02
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: llama-cpp-code-assistant-autocomplete
+        app: llama-cpp-code-assistant-02
       annotations:
         io.kubernetes.cri-o.Devices: "/dev/dri/renderD128"
     spec:
       containers:
-      - name: llama-cpp-code-assistant-autocomplete
-        image: quay.io/cgruver0/che/my-code-assistant:latest
+      - name: llama-cpp-code-assistant-02
+        # image: quay.io/cgruver0/che/my-code-assistant:latest
+        image: nexus.clg.lab:5002/dev-spaces/my-code-assistant:latest
         imagePullPolicy: Always
         env:
         - name: MODEL
-          value: granite-code:3b
+          value: qwen2.5-coder:1.5b
         - name: RAMALAMA_STORE
           value: /ramalama
         - name: LLAMA_CPP_CTX
@@ -330,12 +332,12 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /ramalama
-          name: llama-cpp-code-assistant-autocomplete
+          name: llama-cpp-code-assistant-02
       restartPolicy: Always
       volumes:
-      - name: llama-cpp-code-assistant-autocomplete
+      - name: llama-cpp-code-assistant-02
         persistentVolumeClaim:
-          claimName: llama-cpp-code-assistant-autocomplete
+          claimName: llama-cpp-code-assistant-02
       nodeSelector:
         gpu-node: ""
       affinity:
@@ -346,45 +348,45 @@ spec:
               - key: app
                 operator: In
                 values:
-                - llama-cpp-code-assistant-chat
-                - llama-cpp-code-assistant-embedding
+                - llama-cpp-code-assistant-01
+                - llama-cpp-code-assistant-03
             topologyKey: kubernetes.io/hostname
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: llama-cpp-code-assistant-embedding
+  name: llama-cpp-code-assistant-03
   namespace: code-assistant
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: llama-cpp-code-assistant-embedding
+      app: llama-cpp-code-assistant-03
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: llama-cpp-code-assistant-embedding
+        app: llama-cpp-code-assistant-03
       annotations:
         io.kubernetes.cri-o.Devices: "/dev/dri/renderD128"
     spec:
       containers:
-      - name: llama-cpp-code-assistant-embedding
-        image: quay.io/cgruver0/che/my-code-assistant:latest
+      - name: llama-cpp-code-assistant-03
+        # image: quay.io/cgruver0/che/my-code-assistant:latest
+        image: nexus.clg.lab:5002/dev-spaces/my-code-assistant:latest
         imagePullPolicy: Always
         env:
         - name: MODEL
-          value: granite-embedding:30m
+          value: granite3.2:2b
         - name: RAMALAMA_STORE
           value: /ramalama
         - name: LLAMA_CPP_CTX
-          value: "512"
+          value: "131072"
         - name: LLAMA_CPP_GPU
           value: SYCL0
         args:
           - 'llama-server'
-          - '--embeddings'
           - '--jinja'
           - '--model'
           - $(RAMALAMA_STORE)/models/ollama/$(MODEL)
@@ -403,11 +405,11 @@ spec:
           protocol: TCP
         resources:
           limits:
-            cpu: '2'
-            memory: 4Gi
+            cpu: '8'
+            memory: 32Gi
           requests:
             cpu: '100m'
-            memory: 2Gi
+            memory: 8Gi
         readinessProbe:
           httpGet:
             path: /health
@@ -431,12 +433,12 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /ramalama
-          name: llama-cpp-code-assistant-embedding
+          name: llama-cpp-code-assistant-03
       restartPolicy: Always
       volumes:
-      - name: llama-cpp-code-assistant-embedding
+      - name: llama-cpp-code-assistant-03
         persistentVolumeClaim:
-          claimName: llama-cpp-code-assistant-embedding
+          claimName: llama-cpp-code-assistant-03
       nodeSelector:
         gpu-node: ""
       affinity:
@@ -447,6 +449,6 @@ spec:
               - key: app
                 operator: In
                 values:
-                - llama-cpp-code-assistant-autocomplete
-                - llama-cpp-code-assistant-chat
+                - llama-cpp-code-assistant-02
+                - llama-cpp-code-assistant-01
             topologyKey: kubernetes.io/hostname

@@ -1,12 +1,31 @@
 {
-  "mergeBehavior": "overwrite",
   "models": [
     {
-      "title": "Granite 3.2 Chat",
+      "title": "Granite 3.1",
+      "model": "granite3.1-dense:2b",
+      "contextLength": 131072,
+      "provider": "llama.cpp",
+      "apiBase": "https://llama-cpp-code-assistant-01-code-assistant.apps.region-01.clg.lab/",
+      "requestOptions": {
+        "caBundlePath": "/public-certs/tls-ca-bundle.pem"
+      }
+    },
+    {
+      "title": "Qwen2.5 Coder",
+      "model": "qwen2.5-coder:1.5b",
+      "contextLength": 32768,
+      "provider": "llama.cpp",
+      "apiBase": "https://llama-cpp-code-assistant-02-code-assistant.apps.region-01.clg.lab/",
+      "requestOptions": {
+        "caBundlePath": "/public-certs/tls-ca-bundle.pem"
+      }
+    },
+    {
+      "title": "Granite 3.2",
       "model": "granite3.2:2b",
       "contextLength": 131072,
       "provider": "llama.cpp",
-      "apiBase": "https://llama-cpp-code-assistant-chat-code-assistant.apps.region-01.clg.lab/",
+      "apiBase": "https://llama-cpp-code-assistant-03-code-assistant.apps.region-01.clg.lab/",
       "requestOptions": {
         "caBundlePath": "/public-certs/tls-ca-bundle.pem"
       }
@@ -14,24 +33,14 @@
   ],
   "tabAutocompleteModel": {
     "apiKey": "",
-    "title": "Granite Code Autocomplete",
-    "provider": "openai",
-    "model": "granite-code:3b",
+    "title": "Qwen2.5 Coder",
+    "provider": "llama.cpp",
+    "model": "qwen2.5-coder:1.5b",
     "contextLength": 65536,
     "requestOptions": {
       "caBundlePath": "/public-certs/tls-ca-bundle.pem"
     },
-    "apiBase": "https://llama-cpp-code-assistant-autocomplete-code-assistant.apps.region-01.clg.lab/"
-  },
-  "embeddingsProvider": {
-    "title": "Granite Embeddings",
-    "provider": "llama.cpp",
-    "model": "granite-embedding:30m",
-    "maxChunkSize": 512,
-    "requestOptions": {
-      "caBundlePath": "/public-certs/tls-ca-bundle.pem"
-    },
-    "apiBase": "https://llama-cpp-code-assistant-embedding-code-assistant.apps.region-01.clg.lab/"
+    "apiBase": "https://llama-cpp-code-assistant-02-code-assistant.apps.region-01.clg.lab/"
   },
   "contextProviders": [
     {

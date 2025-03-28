@@ -3,6 +3,9 @@ OpenShift Dev Spaces Code Assistant with Intel GPU - llama.cpp - continue.dev
 
 ```bash
 podman build -t quay.io/cgruver0/che/my-code-assistant:latest ./llama-cpp-image
+
+# Local Lab Nexus
+podman build -t nexus.clg.lab:5002/dev-spaces/my-code-assistant:latest ./llama-cpp-image
 ```
 
 ```
