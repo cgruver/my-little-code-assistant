@@ -23,7 +23,12 @@ fi
 
 if [ ! -f ${RAMALAMA_STORE}/models/ollama/${MODEL} ]
 then
-  ramalama pull ollama://${MODEL}
+  if [[ -v MODEL_URL ]]
+  then
+    wget -O ${RAMALAMA_STORE}/models/ollama/${MODEL} ${MODEL_URL}
+  else
+    ramalama pull ollama://${MODEL}
+  fi  
 fi
 
 source /opt/intel/oneapi/setvars.sh
