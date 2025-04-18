@@ -176,11 +176,11 @@ spec:
         imagePullPolicy: Always
         env:
         - name: MODEL
-          value: granite3.1-dense:2b
+          value: granite3.3:2b
         - name: RAMALAMA_STORE
           value: /ramalama
         - name: LLAMA_CPP_CTX
-          value: "131072"
+          value: "128000"
         - name: LLAMA_CPP_GPU
           value: SYCL0
         args:
@@ -226,7 +226,7 @@ spec:
           periodSeconds: 100
           successThreshold: 1
           failureThreshold: 3
-          initialDelaySeconds: 120
+          initialDelaySeconds: 600
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
@@ -277,11 +277,11 @@ spec:
         imagePullPolicy: Always
         env:
         - name: MODEL
-          value: qwen2.5-coder:1.5b
+          value: granite3.3:2b
         - name: RAMALAMA_STORE
           value: /ramalama
         - name: LLAMA_CPP_CTX
-          value: "32768"
+          value: "128000"
         - name: LLAMA_CPP_GPU
           value: SYCL0
         args:
@@ -327,7 +327,7 @@ spec:
           periodSeconds: 100
           successThreshold: 1
           failureThreshold: 3
-          initialDelaySeconds: 120
+          initialDelaySeconds: 600
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
@@ -378,11 +378,11 @@ spec:
         imagePullPolicy: Always
         env:
         - name: MODEL
-          value: granite3.2:2b
+          value: granite3.3:2b
         - name: RAMALAMA_STORE
           value: /ramalama
         - name: LLAMA_CPP_CTX
-          value: "131072"
+          value: "128000"
         - name: LLAMA_CPP_GPU
           value: SYCL0
         args:
@@ -428,7 +428,7 @@ spec:
           periodSeconds: 100
           successThreshold: 1
           failureThreshold: 3
-          initialDelaySeconds: 120
+          initialDelaySeconds: 600
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
