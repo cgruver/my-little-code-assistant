@@ -1,12 +1,14 @@
 FROM quay.io/fedora/fedora:41 as builder
 
-ARG LLAMA_CPP_VER=b5151
+ARG LLAMA_CPP_REPO
+ARG LLAMA_CPP_VER
+
 
 COPY oneAPI.repo /etc/yum.repos.d/
 
 RUN dnf install -y procps-ng g++ cmake git libcurl-devel intel-oneapi-mkl-sycl-devel intel-oneapi-dnnl-devel intel-oneapi-compiler-dpcpp-cpp intel-level-zero oneapi-level-zero oneapi-level-zero-devel intel-compute-runtime ; \
     source /opt/intel/oneapi/setvars.sh ; \
-    git clone https://github.com/ggerganov/llama.cpp.git -b ${LLAMA_CPP_VER} ; \
+    git clone ${LLAMA_CPP_REPO} -b ${LLAMA_CPP_VER} ; \
     cd llama.cpp ; \
     mkdir -p build ; \
     cd build ; \

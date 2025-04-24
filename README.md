@@ -5,13 +5,15 @@ OpenShift Dev Spaces Code Assistant with Intel GPU - llama.cpp - continue.dev
 podman build -t quay.io/cgruver0/che/my-code-assistant:latest ./llama-cpp-image
 
 # Local Lab Nexus
-podman build -t nexus.clg.lab:5002/dev-spaces/my-code-assistant:latest ./llama-cpp-image
+podman build -t nexus.clg.lab:5002/dev-spaces/my-code-assistant:latest --build-arg LLAMA_CPP_REPO="https://github.com/ggerganov/llama.cpp.git" --build-arg LLAMA_CPP_VER=b5151 ./llama-cpp-image
+
+podman build -t nexus.clg.lab:5002/dev-spaces/my-code-assistant:latest --build-arg LLAMA_CPP_REPO="https://github.com/ochafik/llama.cpp.git" --build-arg LLAMA_CPP_VER=tool-diffs ./llama-cpp-image
 ```
 
 ```
 for i in $(oc get nodes -o name)
 do
-  oc label ${i} gpu-node=""
+  oc label ${i} node-role.kubernetes.io/gpu=""
 done
 ```
 
