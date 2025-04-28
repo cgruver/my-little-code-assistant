@@ -177,6 +177,8 @@ spec:
         env:
         - name: MODEL
           value: granite3.3:2b
+        # - name: MODEL_URL
+        #   value: 'http://10.11.12.1/install/models/granite3.3:2b'
         - name: RAMALAMA_STORE
           value: /ramalama
         - name: LLAMA_CPP_CTX
@@ -277,11 +279,11 @@ spec:
         imagePullPolicy: Always
         env:
         - name: MODEL
-          value: granite3.3:2b
+          value: qwen2.5-coder:7b
         - name: RAMALAMA_STORE
           value: /ramalama
         - name: LLAMA_CPP_CTX
-          value: "128000"
+          value: "32768"
         - name: LLAMA_CPP_GPU
           value: SYCL0
         args:
@@ -378,11 +380,11 @@ spec:
         imagePullPolicy: Always
         env:
         - name: MODEL
-          value: granite3.3:2b
+          value: granite3.3:8b
         - name: RAMALAMA_STORE
           value: /ramalama
         - name: LLAMA_CPP_CTX
-          value: "128000"
+          value: "131072"
         - name: LLAMA_CPP_GPU
           value: SYCL0
         args:
