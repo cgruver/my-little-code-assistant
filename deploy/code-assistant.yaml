@@ -172,7 +172,7 @@ spec:
       containers:
       - name: llama-cpp-code-assistant-01
         # image: quay.io/cgruver0/che/my-code-assistant:latest
-        image: nexus.clg.lab:5002/dev-spaces/my-code-assistant:latest
+        image: nexus.clg.lab:5002/dev-spaces/my-code-assistant:tools
         imagePullPolicy: Always
         env:
         - name: MODEL
@@ -275,7 +275,7 @@ spec:
       containers:
       - name: llama-cpp-code-assistant-02
         # image: quay.io/cgruver0/che/my-code-assistant:latest
-        image: nexus.clg.lab:5002/dev-spaces/my-code-assistant:latest
+        image: nexus.clg.lab:5002/dev-spaces/my-code-assistant:tools
         imagePullPolicy: Always
         env:
         - name: MODEL
@@ -378,7 +378,7 @@ spec:
       containers:
       - name: llama-cpp-code-assistant-03
         # image: quay.io/cgruver0/che/my-code-assistant:latest
-        image: nexus.clg.lab:5002/dev-spaces/my-code-assistant:latest
+        image: nexus.clg.lab:5002/dev-spaces/my-code-assistant:tools
         imagePullPolicy: Always
         env:
         - name: MODEL
