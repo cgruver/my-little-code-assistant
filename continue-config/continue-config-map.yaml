@@ -1,0 +1,74 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: devspaces-user-configmap
+  namespace: openshift-devspaces
+  labels:
+    app.kubernetes.io/part-of: che.eclipse.org
+    app.kubernetes.io/component: workspaces-config
+  annotations:
+    controller.devfile.io/mount-as: subpath
+    controller.devfile.io/mount-path: /projects/home/.continue
+data:
+  config.yaml: |
+    name: code-assistant-config
+    version: 0.0.1
+    schema: v1
+    models:
+      - name: "Granite 3.3 Local Agent"
+        model: "granite3.3:2b"
+        defaultCompletionOptions:
+          contextLength: 128000
+        provider: "openai"
+        apiBase: "https://llama-cpp-code-assistant-01-code-assistant.apps.region-01.clg.lab"
+        apiKey: "NA"
+        requestOptions:
+          caBundlePath: "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem"
+          timeout: 300000
+        roles:
+          - chat
+          - edit
+          - autocomplete
+          - apply
+        capabilities:
+        - tool_use
+      - name: "Granite 3.3 Local Chat"
+        model: "granite3.3:2b"
+        defaultCompletionOptions:
+          contextLength: 128000
+        provider: "openai"
+        apiBase: "https://llama-cpp-code-assistant-02-code-assistant.apps.region-01.clg.lab"
+        apiKey: "NA"
+        requestOptions:
+          caBundlePath: "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem"
+          timeout: 300000
+        roles:
+          - chat
+          - edit
+          - autocomplete
+          - apply
+      - name: "Granite 3.3 Local Autocomplete"
+        model: "granite3.3:2b"
+        defaultCompletionOptions:
+          contextLength: 128000
+        provider: "openai"
+        apiBase: "https://llama-cpp-code-assistant-03-code-assistant.apps.region-01.clg.lab/v1"
+        apiKey: "NA"
+        requestOptions:
+          caBundlePath: "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem"
+          timeout: 300000
+        roles:
+          - chat
+          - edit
+          - autocomplete
+          - apply
+        capabilities:
+        - tool_use
+      - name: "Granite Embeddings"
+        model: "granite-embedding-278m-multilingual"
+        provider: "openai"
+        apiBase: "https://granite-embedding-278m-multilingual-maas-apicast-production.apps.prod.rhoai.rh-aiservices-bu.com:443/v1"
+        apiKey: "<replace-with-key>"
+        roles:
+          - embed
+
