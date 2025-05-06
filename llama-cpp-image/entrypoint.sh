@@ -23,7 +23,7 @@ fi
 
 if [ ! -f ${MODEL_STORE}/${MODEL} ]
 then
-  wget -O ${MODEL_STORE}/${MODEL} ${MODEL_URL}
+  wget -O ${MODEL_STORE}/${MODEL} ${MODEL_URL}/${MODEL}
 fi
 
 source /opt/intel/oneapi/setvars.sh

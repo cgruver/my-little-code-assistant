@@ -9,7 +9,7 @@ podman build -t nexus.clg.lab:5002/dev-spaces/my-code-assistant:latest --build-a
 
 podman build -t nexus.clg.lab:5002/dev-spaces/my-code-assistant:latest --build-arg LLAMA_CPP_REPO="https://github.com/ochafik/llama.cpp.git" --build-arg LLAMA_CPP_VER=tool-diffs ./llama-cpp-image
 
-podman build -t nexus.clg.lab:5002/dev-spaces/my-code-assistant:test --build-arg LLAMA_CPP_REPO="https://github.com/cgruver/llama.cpp.git" --build-arg LLAMA_CPP_VER=clg-tools-test ./llama-cpp-image
+podman build -t nexus.clg.lab:5002/dev-spaces/my-code-assistant:tools --build-arg LLAMA_CPP_REPO="https://github.com/cgruver/llama.cpp.git" --build-arg LLAMA_CPP_VER=re-base ./llama-cpp-image
 ```
 
 ```
