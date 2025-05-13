@@ -12,7 +12,7 @@ RUN dnf install -y procps-ng g++ cmake git libcurl-devel intel-oneapi-mkl-sycl-d
     cd llama.cpp ; \
     mkdir -p build ; \
     cd build ; \
-    cmake .. -DGGML_SYCL=ON -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icpx -DLLAMA_CURL=ON -DGGML_CCACHE=OFF -DGGML_NATIVE=OFF -DGGML_CPU_AARCH64=OFF ; \
+    cmake .. -DGGML_SYCL=ON -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icpx -DLLAMA_CURL=ON -DGGML_CCACHE=OFF -DGGML_NATIVE=ON -DGGML_CPU_AARCH64=OFF ; \
     cmake --build . --config Release -j -v ; \
     cmake --install . --prefix /llama-cpp
 
