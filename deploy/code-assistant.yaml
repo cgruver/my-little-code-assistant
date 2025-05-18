@@ -68,6 +68,8 @@ apiVersion: route.openshift.io/v1
 metadata:
   name: llama-cpp-code-assistant-01
   namespace: code-assistant
+  annotations:
+    haproxy.router.openshift.io/timeout: 300s
 spec:
   to:
     kind: Service
@@ -84,6 +86,8 @@ apiVersion: route.openshift.io/v1
 metadata:
   name: llama-cpp-code-assistant-02
   namespace: code-assistant
+  annotations:
+    haproxy.router.openshift.io/timeout: 300s
 spec:
   to:
     kind: Service
@@ -100,6 +104,8 @@ apiVersion: route.openshift.io/v1
 metadata:
   name: llama-cpp-code-assistant-03
   namespace: code-assistant
+  annotations:
+    haproxy.router.openshift.io/timeout: 300s
 spec:
   to:
     kind: Service
