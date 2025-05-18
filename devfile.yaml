@@ -11,6 +11,13 @@ projects:
       checkoutFrom:
         remote: origin
         revision: main
+  - name: llama-cpp
+    git:
+      remotes:
+        origin: https://github.com/cgruver/llama.cpp.git
+      checkoutFrom:
+        remote: origin
+        revision: main
 components:
 - name: dev-tools
   attributes:

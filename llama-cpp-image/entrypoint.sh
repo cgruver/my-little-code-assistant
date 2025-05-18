@@ -26,6 +26,11 @@ then
   wget -O ${MODEL_STORE}/${MODEL} ${MODEL_URL}/${MODEL}
 fi
 
+if [ -n ${CHAT_TEMPLATE} ]
+then
+  wget -O ${MODEL_STORE}/${CHAT_TEMPLATE} ${MODEL_URL}/${CHAT_TEMPLATE}
+fi
+
 source /opt/intel/oneapi/setvars.sh
 
 exec "$@"

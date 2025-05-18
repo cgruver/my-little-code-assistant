@@ -3,6 +3,10 @@
 		{
 			"name": "my-little-code-assistant",
 			"path": "/projects/my-little-code-assistant"
+		},
+		{
+			"name": "llama-cpp",
+			"path": "/projects/llama.cpp"
 		}
 	],
 	"extensions": {
