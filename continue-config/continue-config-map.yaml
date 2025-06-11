@@ -2,7 +2,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: devspaces-user-configmap
-  namespace: openshift-devspaces
+  namespace: devspaces
   labels:
     app.kubernetes.io/part-of: che.eclipse.org
     app.kubernetes.io/component: workspaces-config
@@ -15,15 +15,15 @@ data:
     version: 0.0.1
     schema: v1
     models:
-      - name: "Granite 3.3 Local Agent"
-        model: "granite3.3:2b"
+      - name: Granite 3.3 2b Local
+        model: granite3.3:2b
         defaultCompletionOptions:
           contextLength: 128000
-        provider: "openai"
-        apiBase: "https://llama-cpp-code-assistant-01-code-assistant.apps.region-01.clg.lab"
-        apiKey: "NA"
+        provider: openai
+        apiBase: https://llama-cpp-code-assistant-01-code-assistant.apps.nuc-15.clg.lab/v1
+        apiKey: NA
         requestOptions:
-          caBundlePath: "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem"
+          caBundlePath: /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
           timeout: 300000
         roles:
           - chat
@@ -31,31 +31,16 @@ data:
           - autocomplete
           - apply
         capabilities:
-        - tool_use
-      - name: "Granite 3.3 Local Chat"
-        model: "granite3.3:2b"
+          - tool_use
+      - name: Qwen 3 1.7b Local
+        model: qwen3:1.7b
         defaultCompletionOptions:
-          contextLength: 128000
-        provider: "openai"
-        apiBase: "https://llama-cpp-code-assistant-02-code-assistant.apps.region-01.clg.lab"
-        apiKey: "NA"
+          contextLength: 40960
+        provider: openai
+        apiBase: https://llama-cpp-code-assistant-02-code-assistant.apps.nuc-15.clg.lab/v1
+        apiKey: NA
         requestOptions:
-          caBundlePath: "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem"
-          timeout: 300000
-        roles:
-          - chat
-          - edit
-          - autocomplete
-          - apply
-      - name: "Granite 3.3 Local Autocomplete"
-        model: "granite3.3:2b"
-        defaultCompletionOptions:
-          contextLength: 128000
-        provider: "openai"
-        apiBase: "https://llama-cpp-code-assistant-03-code-assistant.apps.region-01.clg.lab/v1"
-        apiKey: "NA"
-        requestOptions:
-          caBundlePath: "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem"
+          caBundlePath: /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
           timeout: 300000
         roles:
           - chat
@@ -63,12 +48,43 @@ data:
           - autocomplete
           - apply
         capabilities:
-        - tool_use
-      - name: "Granite Embeddings"
-        model: "granite-embedding-278m-multilingual"
-        provider: "openai"
-        apiBase: "https://granite-embedding-278m-multilingual-maas-apicast-production.apps.prod.rhoai.rh-aiservices-bu.com:443/v1"
-        apiKey: "<replace-with-key>"
+          - tool_use
+      - name: Qwen 3 4b Local
+        model: qwen3:4b
+        defaultCompletionOptions:
+          contextLength: 40960
+        provider: llama.cpp
+        apiBase: https://llama-cpp-code-assistant-03-code-assistant.apps.nuc-15.clg.lab
+        apiKey: NA
+        requestOptions:
+          caBundlePath: /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+          timeout: 300000
+        roles:
+          - chat
+        capabilities:
+          - tool_use
+      - name: CLG-LAB-DS1
+        model: deepseek-r1-distill-qwen-14b
+        provider: openai
+        apiBase: https://deepseek-r1-distill-qwen-14b-maas-apicast-production.apps.prod.rhoai.rh-aiservices-bu.com/v1
+        apiKey: YOUR_KEY_HERE
+        defaultCompletionOptions:
+          contextLength: 50000
+        roles:
+          - chat
+          - edit
+          - autocomplete
+          - apply
+        capabilities:
+          - tool_use
+      - name: Granite Embeddings
+        model: granite-embedding-278m-multilingual
+        provider: openai
+        apiBase: https://granite-embedding-278m-multilingual-maas-apicast-production.apps.prod.rhoai.rh-aiservices-bu.com:443/v1
+        apiKey: YOUR_KEY_HERE
         roles:
           - embed
-
+    docs:
+      - name: Quarkus Guides
+        faviconUrl: ""
+        startUrl: https://quarkus.io/guides

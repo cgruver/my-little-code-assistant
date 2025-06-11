@@ -178,7 +178,7 @@ spec:
       containers:
       - name: llama-cpp-code-assistant-01
         # image: quay.io/cgruver0/che/my-code-assistant:latest
-        image: nexus.clg.lab:5002/dev-spaces/my-code-assistant:tools
+        image: nexus.clg.lab:5002/dev-spaces/my-code-assistant:latest
         imagePullPolicy: Always
         env:
         - name: MODEL
@@ -192,7 +192,7 @@ spec:
         - name: LLAMA_CPP_GPU
           value: SYCL0
         args:
-          - 'llama-server'
+          - llama-server
           - '--jinja'
           - '--model'
           - $(MODEL_STORE)/$(MODEL)
@@ -205,6 +205,10 @@ spec:
           - $(LLAMA_CPP_CTX)
           - '--device'
           - $(LLAMA_CPP_GPU)
+          - '--no-prefill-assistant'
+          - '--verbose'
+          - '--reasoning-format'
+          - none
         ports:
         - name: http
           containerPort: 8080
@@ -281,13 +285,11 @@ spec:
       containers:
       - name: llama-cpp-code-assistant-02
         # image: quay.io/cgruver0/che/my-code-assistant:latest
-        image: nexus.clg.lab:5002/dev-spaces/my-code-assistant:tools
+        image: nexus.clg.lab:5002/dev-spaces/my-code-assistant:latest
         imagePullPolicy: Always
         env:
         - name: MODEL
           value: qwen3:1.7b
-        - name: CHAT_TEMPLATE
-          value: qwen3-chat-template
         - name: MODEL_URL
           value: 'http://10.11.12.20'
         - name: MODEL_STORE
@@ -297,12 +299,12 @@ spec:
         - name: LLAMA_CPP_GPU
           value: SYCL0
         args:
-          - 'llama-server'
+          - llama-server
           - '--jinja'
           - '--model'
           - $(MODEL_STORE)/$(MODEL)
           - '--host'
-          - 0.0.0.0
+          - '0.0.0.0'
           - '--n-gpu-layers'
           - '999'
           - '--flash-attn'
@@ -310,6 +312,10 @@ spec:
           - $(LLAMA_CPP_CTX)
           - '--device'
           - $(LLAMA_CPP_GPU)
+          - '--no-prefill-assistant'
+          - '--verbose'
+          - '--reasoning-format'
+          - 'none'
         ports:
         - name: http
           containerPort: 8080
@@ -386,13 +392,11 @@ spec:
       containers:
       - name: llama-cpp-code-assistant-03
         # image: quay.io/cgruver0/che/my-code-assistant:latest
-        image: nexus.clg.lab:5002/dev-spaces/my-code-assistant:tools
+        image: nexus.clg.lab:5002/dev-spaces/my-code-assistant:latest
         imagePullPolicy: Always
         env:
         - name: MODEL
           value: qwen3:4b
-        - name: CHAT_TEMPLATE
-          value: qwen3-chat-template
         - name: MODEL_URL
           value: 'http://10.11.12.20'
         - name: MODEL_STORE
@@ -402,12 +406,12 @@ spec:
         - name: LLAMA_CPP_GPU
           value: SYCL0
         args:
-          - 'llama-server'
+          - llama-server
           - '--jinja'
           - '--model'
           - $(MODEL_STORE)/$(MODEL)
           - '--host'
-          - 0.0.0.0
+          - '0.0.0.0'
           - '--n-gpu-layers'
           - '999'
           - '--flash-attn'
@@ -415,6 +419,10 @@ spec:
           - $(LLAMA_CPP_CTX)
           - '--device'
           - $(LLAMA_CPP_GPU)
+          - '--no-prefill-assistant'
+          - '--verbose'
+          - '--reasoning-format'
+          - 'none'
         ports:
         - name: http
           containerPort: 8080

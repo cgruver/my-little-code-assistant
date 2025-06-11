@@ -5,11 +5,11 @@ OpenShift Dev Spaces Code Assistant with Intel GPU - llama.cpp - continue.dev
 podman build -t quay.io/cgruver0/che/my-code-assistant:latest ./llama-cpp-image
 
 # Local Lab Nexus
-podman build -t nexus.clg.lab:5002/dev-spaces/my-code-assistant:latest --build-arg LLAMA_CPP_REPO="https://github.com/ggerganov/llama.cpp.git" --build-arg LLAMA_CPP_VER=b5381 ./llama-cpp-image
+podman build -t nexus.clg.lab:5002/dev-spaces/my-code-assistant:latest --build-arg LLAMA_CPP_REPO="https://github.com/ggerganov/llama.cpp.git" --build-arg LLAMA_CPP_VER=b5627 ./llama-cpp-image
 
 podman build -t nexus.clg.lab:5002/dev-spaces/my-code-assistant:tools --build-arg LLAMA_CPP_REPO="https://github.com/ochafik/llama.cpp.git" --build-arg LLAMA_CPP_VER=tool-diffs ./llama-cpp-image
 
-podman build -t nexus.clg.lab:5002/dev-spaces/my-code-assistant:tools --build-arg LLAMA_CPP_REPO="https://github.com/cgruver/llama.cpp.git" --build-arg LLAMA_CPP_VER=tools ./llama-cpp-image
+podman build -t nexus.clg.lab:5002/dev-spaces/my-code-assistant:tools --build-arg LLAMA_CPP_REPO="https://github.com/cgruver/llama.cpp.git" --build-arg LLAMA_CPP_VER=master ./llama-cpp-image
 ```
 
 ```
@@ -19,9 +19,9 @@ do
 done
 ```
 
-## Machine Config to leak GPU into a Pod
+## Machine Config to leak Intel ARC iGPU into a Pod
 
-__Note:__ `/dev/net/tun` and `/dev/fuse` are enabled OOTB.  They are included here for compatibility.  
+__Note:__ `/dev/net/tun` and `/dev/fuse` are enabled OOTB in OCP 4.18+.  They are included here for compatibility.  
 
 ```bash
 cat << EOF | butane | oc apply -f -
