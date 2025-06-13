@@ -2,6 +2,7 @@ FROM quay.io/fedora/fedora:42 as builder
 
 ARG LLAMA_CPP_REPO
 ARG LLAMA_CPP_VER
+ARG DEVICE_ARCH
 
 
 COPY oneAPI.repo /etc/yum.repos.d/
@@ -12,7 +13,7 @@ RUN dnf install -y awk procps-ng g++ cmake git libcurl-devel intel-oneapi-mkl-sy
     cd llama.cpp ; \
     mkdir -p build ; \
     cd build ; \
-    cmake .. -DGGML_SYCL=ON -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icpx -DLLAMA_CURL=ON -DGGML_CCACHE=OFF -DGGML_NATIVE=ON -DGGML_CPU_AARCH64=OFF ; \
+    cmake .. -DGGML_SYCL=ON -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icpx -DLLAMA_CURL=ON -DGGML_CCACHE=OFF -DGGML_NATIVE=ON -DGGML_CPU_AARCH64=OFF -DGGML_SYCL_DEVICE_ARCH=${DEVICE_ARCH}; \
     cmake --build . --config Release -j -v ; \
     cmake --install . --prefix /llama-cpp
 

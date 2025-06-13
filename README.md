@@ -5,11 +5,16 @@ OpenShift Dev Spaces Code Assistant with Intel GPU - llama.cpp - continue.dev
 podman build -t quay.io/cgruver0/che/my-code-assistant:latest ./llama-cpp-image
 
 # Local Lab Nexus
-podman build -t nexus.clg.lab:5002/dev-spaces/my-code-assistant:latest --build-arg LLAMA_CPP_REPO="https://github.com/ggerganov/llama.cpp.git" --build-arg LLAMA_CPP_VER=b5627 ./llama-cpp-image
+podman build -t nexus.clg.lab:5002/dev-spaces/my-code-assistant:latest --build-arg LLAMA_CPP_REPO="https://github.com/ggerganov/llama.cpp.git" --build-arg LLAMA_CPP_VER=b5662 ./llama-cpp-image
 
 podman build -t nexus.clg.lab:5002/dev-spaces/my-code-assistant:tools --build-arg LLAMA_CPP_REPO="https://github.com/ochafik/llama.cpp.git" --build-arg LLAMA_CPP_VER=tool-diffs ./llama-cpp-image
 
 podman build -t nexus.clg.lab:5002/dev-spaces/my-code-assistant:tools --build-arg LLAMA_CPP_REPO="https://github.com/cgruver/llama.cpp.git" --build-arg LLAMA_CPP_VER=master ./llama-cpp-image
+
+podman build -t nexus.clg.lab:5002/dev-spaces/my-code-assistant:arl_h --build-arg LLAMA_CPP_REPO="https://github.com/ggerganov/llama.cpp.git" --build-arg LLAMA_CPP_VER=b5662 --build-arg DEVICE_ARCH=arl_h ./llama-cpp-image
+
+podman build -t nexus.clg.lab:5002/dev-spaces/my-code-assistant:mtl_h --build-arg LLAMA_CPP_REPO="https://github.com/ggerganov/llama.cpp.git" --build-arg LLAMA_CPP_VER=b5662 --build-arg DEVICE_ARCH=mtl_h ./llama-cpp-image
+
 ```
 
 ```
