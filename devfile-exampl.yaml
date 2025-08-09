@@ -1,0 +1,26 @@
+schemaVersion: 2.2.0
+attributes:
+  controller.devfile.io/storage-type: per-workspace
+metadata:
+  name: gpu-slicing
+components:
+- name: dev-tools
+  attributes:
+    container-overrides: 
+      resources:
+        requests: 
+          nvidia.com/gpu: "0.5"
+        limits:
+          nvidia.com/gpu: "0.5"
+  container:
+    image: your-container-url-here
+    memoryLimit: 16Gi
+    memoryRequest: 1Gi
+    cpuLimit: 8000m
+    cpuRequest: 1000m
+    mountSources: true
+    env:
+    # Your ENV here
+- volume:
+    size: 50Gi
+  name: projects
