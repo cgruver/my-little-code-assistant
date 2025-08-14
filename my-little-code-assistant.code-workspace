@@ -6,7 +6,7 @@
 		},
 		{
 			"name": "llama-cpp",
-			"path": "/projects/llama.cpp"
+			"path": "/projects/llama-cpp"
 		}
 	],
 	"extensions": {
