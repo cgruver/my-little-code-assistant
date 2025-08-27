@@ -250,7 +250,7 @@ spec:
         persistentVolumeClaim:
           claimName: llama-cpp-code-assistant-01
       nodeSelector:
-        node-role.kubernetes.io/gpu: ""
+        node-role.kubernetes.io/gpu: "ARC-140T"
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -357,7 +357,7 @@ spec:
         persistentVolumeClaim:
           claimName: llama-cpp-code-assistant-02
       nodeSelector:
-        node-role.kubernetes.io/gpu: ""
+        node-role.kubernetes.io/gpu: "ARC-140T"
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -464,7 +464,7 @@ spec:
         persistentVolumeClaim:
           claimName: llama-cpp-code-assistant-03
       nodeSelector:
-        node-role.kubernetes.io/gpu: ""
+        node-role.kubernetes.io/gpu: "ARC-140T"
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
